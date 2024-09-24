@@ -25,7 +25,6 @@ from tensorflow.keras import layers, initializers, regularizers, optimizers, cal
 
 logger = logging.getLogger(__name__)
 
-
 class CellCnn(object):
     """ Creates a CellCnn model.
 
