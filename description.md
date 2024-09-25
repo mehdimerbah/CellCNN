@@ -78,3 +78,48 @@ The training involves the following optimization approach:
 - **Dropout**: Dropout (`dropout`, `dropout_p`) is used to randomly deactivate neurons during training, further reducing the risk of overfitting. When dropout is enabled, a certain proportion of the neurons are ignored during training, helping to generalize the model.
 
 - **Optimizer**: The Adam optimizer is used for training, with a tunable learning rate (`learning_rate`). Adam is an adaptive learning rate optimizer that combines the advantages of both momentum and RMSProp optimizers, which speeds up convergence and helps avoid local minima.
+
+### 5. Output:
+
+=== Model predictions (test data) ===
+
+ [[0.72932698 0.270673  ]
+ [0.73456703 0.26543296]
+ [0.4011782  0.59882178]
+ [0.04352537 0.9564746 ]
+ [0.52662196 0.47337805]
+ [0.68897269 0.31102731]]
+Predicted classes: [0, 0, 1, 1, 0, 0]
+True phenotypes: [0, 0, 0, 1, 0, 1]
+Test accuracy: 0.6667
+Balanced test accuracy: 0.6250
+test ROC AUC: 0.75
+Test confusion matrix:
+ [[3 1]
+ [1 1]]
+
+=== Model predictions (train data) ===
+
+ [[0.23119789 0.76880213]
+ [0.73669753 0.26330249]
+ [0.97708025 0.02291973]
+ [0.12618394 0.87381603]
+ [0.9559932  0.04400683]
+ [0.98008382 0.01991618]
+ [0.98235257 0.01764744]
+ [0.03206579 0.96793415]
+ [0.12885423 0.87114571]
+ [0.81272419 0.18727578]
+ [0.27608707 0.72391293]
+ [0.09117089 0.90882909]
+ [0.05436602 0.94563399]
+ [0.78880139 0.21119857]]
+Predicted classes: [1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0]
+True phenotypes: [1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0]
+Train accuracy: 1.0000
+Balanced train accuracy: 1.0000
+train ROC AUC: 1.0
+Train confusion matrix:
+ [[7 0]
+ [0 7]]
+
