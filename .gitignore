@@ -15,10 +15,9 @@ __pycache__/
 
 # figures
 *.eps
-*.pdf
 *.jpg
 *.svg
-
+output/plots/*
 # C extensions
 *.so
 
