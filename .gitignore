@@ -15,7 +15,6 @@ __pycache__/
 
 # figures
 *.eps
-*.png
 *.pdf
 *.jpg
 *.svg
