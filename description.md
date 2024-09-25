@@ -29,3 +29,52 @@ python main.py --ncell 500 \
 | `--sample_col sample_id`                          | The column name in the training and test data that contains the sample IDs. This is used to link each sample's data to its corresponding label. |
 | `--name NK_cell_analysis`                         | A name for the current analysis. This is used to label the output files and logs for easy identification of this experiment. |
 | `--feature_names NK_cell_dataset/NK_markers_corrected.csv` | The path to a file containing the names of the features (markers) to be used in the model. Each row in this file corresponds to a feature name. |
+
+
+### 2. Optimization Approach:
+
+The training involves the following optimization approach:
+
+- **Training/Validation Split**: The dataset is split into training and test sets, with a portion of the data held out for validation during training.
+  
+- **Subset Sampling**: A random or biased selection of subsets is generated. This is determined by `--nsubset 1000`, meaning 1000 multi-cell input subsets are generated from the dataset for training.
+
+- **Cross-Validation**: The model likely uses cross-validation (e.g., Stratified K-Fold) to split the training data into multiple folds, optimizing across these folds.
+
+- **Early Stopping**: Early stopping is employed, monitoring the validation loss and stopping the training if the performance does not improve over a certain number of epochs.
+
+- **Model Selection**: Multiple models are trained using different hyperparameter combinations, and the best-performing models are selected based on the validation accuracy or loss.
+
+- **Final Evaluation**: The model is finally evaluated on the test data using metrics such as accuracy, ROC AUC, and the confusion matrix.
+
+### 3. Neural Network Hyperparameters:
+
+| Hyperparameter              | Description |
+|-----------------------------|-------------|
+| **`ncell`**                 | The number of cells per multi-cell input (500 in this case). The model processes each multi-cell input to capture relationships between cells. |
+| **`nsubset`**               | The number of multi-cell input samples generated for training. These subsets are created randomly or based on some selection criteria (1000 subsets are generated). |
+| **`nfilter_choice`**        | The list of candidate numbers of filters for the convolutional layers. For example, the model may choose a filter size randomly from a predefined range (e.g., [3, 4, 5, 6]). |
+| **`maxpool_percentages`**   | A list specifying the percentages of cells that will be max-pooled per filter. Pooling reduces the number of cells after applying filters (e.g., [1%, 5%, 20%, 100%]). |
+| **`coeff_l1`**              | Coefficient for L1 regularization. This regularization term helps prevent overfitting by penalizing large weights in the network. |
+| **`coeff_l2`**              | Coefficient for L2 regularization. Like L1, L2 regularization helps avoid overfitting by penalizing large weights. |
+| **`learning_rate`**         | The learning rate for the Adam optimizer. If set to `None`, the script will try learning rates from a range (e.g., [0.001, 0.01]). |
+| **`dropout`**               | Dropout probability for regularization. If set to `'auto'`, dropout is applied based on the model configuration. |
+| **`dropout_p`**             | Dropout probability value (e.g., 0.5). This controls the percentage of neurons that are dropped out during training. |
+| **`nrun`**                  | The number of neural network configurations to try during training (100 in this case). Each configuration uses different combinations of hyperparameters. |
+| **`max_epochs`**            | Maximum number of epochs for training. Early stopping may stop training earlier if validation performance stops improving. |
+| **`patience`**              | Number of epochs for early stopping. If the validation loss doesn't improve after a certain number of epochs (e.g., 5 epochs), the training stops. |
+| **`regression`**            | If set to `True`, the model performs regression. If `False` (default), it performs classification. |
+| **`dendrogram_cutoff`**     | Cutoff for hierarchical clustering of filter weights, used for post-training analysis of the learned filters. The cutoff value typically ranges between 0 and 
+
+
+### 4. Key Model Components:
+
+- **Convolutional Layers**: These layers apply convolutional filters to the input data, capturing spatial or temporal relationships between cells. The number of filters used is determined by the `nfilter_choice` hyperparameter.
+
+- **Max Pooling**: Pooling layers reduce the dimensionality of the input, retaining the most important information. This is controlled by `maxpool_percentages` and `k`, which defines the number of cells pooled. The percentage of cells pooled is specified by the model during training.
+
+- **Regularization**: L1 and L2 regularization (`coeff_l1`, `coeff_l2`) are applied to the convolutional and fully connected layers to prevent overfitting by penalizing large weights, making the model more robust.
+
+- **Dropout**: Dropout (`dropout`, `dropout_p`) is used to randomly deactivate neurons during training, further reducing the risk of overfitting. When dropout is enabled, a certain proportion of the neurons are ignored during training, helping to generalize the model.
+
+- **Optimizer**: The Adam optimizer is used for training, with a tunable learning rate (`learning_rate`). Adam is an adaptive learning rate optimizer that combines the advantages of both momentum and RMSProp optimizers, which speeds up convergence and helps avoid local minima.
