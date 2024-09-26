@@ -119,3 +119,21 @@ The training involves the following optimization approach:
 **Weighted Average Recall:** 0.75  
 **Weighted Average F1-Score:** 0.75
 
+
+### 6. Best Model Hyperparameters:
+
+#### Model 1 Hyperparameters:
+- **`nfilter`**: 6
+- **`learning_rate`**: 0.006399605907348553
+- **`maxpool_percentage`**: 100.0
+
+#### Model 2 Hyperparameters:
+- **`nfilter`**: 8
+- **`learning_rate`**: 0.0021556193590010955
+- **`maxpool_percentage`**: 100.0
+
+#### Model 3 Hyperparameters:
+- **`nfilter`**: 8
+- **`learning_rate`**: 0.0059957045268639346
+- **`maxpool_percentage`**: 100.0
+
