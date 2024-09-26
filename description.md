@@ -81,45 +81,33 @@ The training involves the following optimization approach:
 
 ### 5. Output:
 
-=== Model predictions (test data) ===
+# Model Evaluation Results
 
- [[0.72932698 0.270673  ]
- [0.73456703 0.26543296]
- [0.4011782  0.59882178]
- [0.04352537 0.9564746 ]
- [0.52662196 0.47337805]
- [0.68897269 0.31102731]]
-Predicted classes: [0, 0, 1, 1, 0, 0]
-True phenotypes: [0, 0, 0, 1, 0, 1]
-Test accuracy: 0.6667
-Balanced test accuracy: 0.6250
-test ROC AUC: 0.75
-Test confusion matrix:
- [[3 1]
- [1 1]]
+**Test accuracy:** 0.7518  
+**Balanced test accuracy:** 0.8014  
+**Precision:** 0.6017  
+**Recall:** 1.0000  
+**F1-score:** 0.7513  
+**Matthews Correlation Coefficient:** 0.6022  
+**Test ROC AUC:** 0.9821  
 
-=== Model predictions (train data) ===
+## Test Confusion Matrix:
+|     | Predicted 0 | Predicted 1 |
+|-----|-------------|-------------|
+| **Actual 0** | 3014        | 1986        |
+| **Actual 1** | 0           | 3000        |
 
- [[0.23119789 0.76880213]
- [0.73669753 0.26330249]
- [0.97708025 0.02291973]
- [0.12618394 0.87381603]
- [0.9559932  0.04400683]
- [0.98008382 0.01991618]
- [0.98235257 0.01764744]
- [0.03206579 0.96793415]
- [0.12885423 0.87114571]
- [0.81272419 0.18727578]
- [0.27608707 0.72391293]
- [0.09117089 0.90882909]
- [0.05436602 0.94563399]
- [0.78880139 0.21119857]]
-Predicted classes: [1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0]
-True phenotypes: [1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0]
-Train accuracy: 1.0000
-Balanced train accuracy: 1.0000
-train ROC AUC: 1.0
-Train confusion matrix:
- [[7 0]
- [0 7]]
+## Classification Report:
+| Class | Precision | Recall | F1-Score | Support |
+|-------|-----------|--------|----------|---------|
+| 0     | 1.00      | 0.60   | 0.75     | 5000    |
+| 1     | 0.60      | 1.00   | 0.75     | 3000    |
+
+**Overall Accuracy:** 0.75  
+**Macro Average Precision:** 0.80  
+**Macro Average Recall:** 0.80  
+**Macro Average F1-Score:** 0.75  
+**Weighted Average Precision:** 0.85  
+**Weighted Average Recall:** 0.75  
+**Weighted Average F1-Score:** 0.75
 
