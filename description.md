@@ -58,7 +58,7 @@ The training involves the following optimization approach:
 | **`maxpool_percentages`**   | A list specifying the percentages of cells that will be max-pooled per filter. Pooling reduces the number of cells after applying filters (e.g., [1%, 5%, 20%, 100%]). |
 | **`coeff_l1`**              | Coefficient for L1 regularization. This regularization term helps prevent overfitting by penalizing large weights in the network. |
 | **`coeff_l2`**              | Coefficient for L2 regularization. Like L1, L2 regularization helps avoid overfitting by penalizing large weights. |
-| **`learning_rate`**         | The learning rate for the Adam optimizer. If set to `None`, the script will try learning rates from a range (e.g., [0.001, 0.01]). |
+| **`learning_rate`**         | The learning rate for the Adam optimizer. If set to `None`, the script will try learning rates from a range ([0.001, 0.01]). |
 | **`dropout`**               | Dropout probability for regularization. If set to `'auto'`, dropout is applied based on the model configuration. |
 | **`dropout_p`**             | Dropout probability value (e.g., 0.5). This controls the percentage of neurons that are dropped out during training. |
 | **`nrun`**                  | The number of neural network configurations to try during training (100 in this case). Each configuration uses different combinations of hyperparameters. |
