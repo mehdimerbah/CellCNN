@@ -3,8 +3,8 @@
 ### Command:
 ```bash
 python main.py --ncell 500 \
-               --nsubset 1000 \
-               --nfeatures 36 \
+               --nsubset 3000 \
+               --nfeatures 37 \
                --train_data train_data.csv \
                --test_data test_data.csv \
                --output_path ./output \
@@ -12,6 +12,7 @@ python main.py --ncell 500 \
                --response label \
                --sample_col sample_id \
                --name NK_cell_analysis \
+               --nrun 100 \
                --feature_names NK_cell_dataset/NK_markers_corrected.csv
 ```
 ### Parameters:
