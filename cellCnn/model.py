@@ -21,7 +21,7 @@ from cellCnn.utils import mkdir_p
 
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import layers, initializers, regularizers, optimizers, callbacks
+from keras import layers, initializers, regularizers, optimizers, callbacks
 
 logger = logging.getLogger(__name__)
 
