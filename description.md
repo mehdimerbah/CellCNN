@@ -53,9 +53,9 @@ The training involves the following optimization approach:
 | Hyperparameter              | Description |
 |-----------------------------|-------------|
 | **`ncell`**                 | The number of cells per multi-cell input (500 in this case). The model processes each multi-cell input to capture relationships between cells. |
-| **`nsubset`**               | The number of multi-cell input samples generated for training. These subsets are created randomly or based on some selection criteria (1000 subsets are generated). |
-| **`nfilter_choice`**        | The list of candidate numbers of filters for the convolutional layers. For example, the model may choose a filter size randomly from a predefined range (e.g., [3, 4, 5, 6]). |
-| **`maxpool_percentages`**   | A list specifying the percentages of cells that will be max-pooled per filter. Pooling reduces the number of cells after applying filters (e.g., [1%, 5%, 20%, 100%]). |
+| **`nsubset`**               | The number of multi-cell input samples generated for training. These subsets are created randomly or based on some selection criteria (3000 subsets are generated). |
+| **`nfilter_choice`**        | The list of candidate numbers of filters for the convolutional layers. For example, the model may choose a filter size randomly from a predefined range ([3, 4, 5, 6]). |
+| **`maxpool_percentages`**   | A list specifying the percentages of cells that will be max-pooled per filter. Pooling reduces the number of cells after applying filters ([1%, 5%, 20%, 100%]). |
 | **`coeff_l1`**              | Coefficient for L1 regularization. This regularization term helps prevent overfitting by penalizing large weights in the network. |
 | **`coeff_l2`**              | Coefficient for L2 regularization. Like L1, L2 regularization helps avoid overfitting by penalizing large weights. |
 | **`learning_rate`**         | The learning rate for the Adam optimizer. If set to `None`, the script will try learning rates from a range ([0.001, 0.01]). |
