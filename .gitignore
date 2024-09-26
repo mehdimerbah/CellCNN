@@ -17,7 +17,6 @@ __pycache__/
 *.eps
 *.jpg
 *.svg
-output/plots/*
 # C extensions
 *.so
 
