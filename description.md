@@ -52,20 +52,27 @@ The training involves the following optimization approach:
 
 | Hyperparameter              | Description |
 |-----------------------------|-------------|
-| **`ncell`**                 | The number of cells per multi-cell input (500 in this case). The model processes each multi-cell input to capture relationships between cells. |
-| **`nsubset`**               | The number of multi-cell input samples generated for training. These subsets are created randomly or based on some selection criteria (3000 subsets are generated). |
-| **`nfilter_choice`**        | The list of candidate numbers of filters for the convolutional layers. For example, the model may choose a filter size randomly from a predefined range ([3, 4, 5, 6]). |
-| **`maxpool_percentages`**   | A list specifying the percentages of cells that will be max-pooled per filter. Pooling reduces the number of cells after applying filters ([1%, 5%, 20%, 100%]). |
-| **`coeff_l1`**              | Coefficient for L1 regularization. This regularization term helps prevent overfitting by penalizing large weights in the network. |
-| **`coeff_l2`**              | Coefficient for L2 regularization. Like L1, L2 regularization helps avoid overfitting by penalizing large weights. |
-| **`learning_rate`**         | The learning rate for the Adam optimizer. If set to `None`, the script will try learning rates from a range ([0.001, 0.01]). |
-| **`dropout`**               | Dropout probability for regularization. If set to `'auto'`, dropout is applied based on the model configuration. |
-| **`dropout_p`**             | Dropout probability value (e.g., 0.5). This controls the percentage of neurons that are dropped out during training. |
-| **`nrun`**                  | The number of neural network configurations to try during training (100 in this case). Each configuration uses different combinations of hyperparameters. |
-| **`max_epochs`**            | Maximum number of epochs for training. Early stopping may stop training earlier if validation performance stops improving. |
-| **`patience`**              | Number of epochs for early stopping. If the validation loss doesn't improve after a certain number of epochs (e.g., 5 epochs), the training stops. |
-| **`regression`**            | If set to `True`, the model performs regression. If `False` (default), it performs classification. |
-| **`dendrogram_cutoff`**     | Cutoff for hierarchical clustering of filter weights, used for post-training analysis of the learned filters. The cutoff value typically ranges between 0 and 
+| **`ncell`**                 | The number of cells per multi-cell input (default: `200`). The model processes each multi-cell input to capture relationships between cells. |
+| **`nsubset`**               | The number of multi-cell input samples generated for training (default: `1000`). These subsets are created randomly or based on some selection criteria. |
+| **`per_sample`**            | Determines whether the `nsubset` argument refers to each input sample (`True`) or each class (`False`) (default: `False`). For regression problems, it is automatically set to `True`. |
+| **`subset_selection`**      | Strategy for generating multi-cell inputs. Can be `'random'` or `'outlier'` (default: `'random'`). `'outlier'` is used to detect extremely rare (frequency < 0.1%) cell populations by biasing subset selection towards outliers. |
+| **`maxpool_percentages`**   | A list specifying the candidate percentages of cells that will be max-pooled per filter (default: `[0.01, 1., 5., 20., 100.]`). Pooling reduces the number of cells after applying filters, with percentages such as 1%, 5%, 20%, and 100% corresponding to different levels of pooling. |
+| **`nfilter_choice`**        | A list specifying the candidate numbers of filters for the convolutional layers (default: `list(range(3, 10))`). For example, the model may choose a filter size randomly from a predefined range like `[3, 4, 5, 6, 7, 8, 9]`. |
+| **`scale`**                 | Whether to z-transform each feature (mean = 0, standard deviation = 1) prior to training (default: `True`). Scaling ensures that all features contribute equally to the training process. |
+| **`quant_normed`**          | Indicates whether the input samples have already been pre-processed with quantile normalization (default: `False`). If `True`, each feature is zero-centered by subtracting 0.5. |
+| **`dropout`**               | Dropout strategy for regularization (default: `'auto'`). If set to `'auto'`, dropout is applied based on the model configuration, typically when the number of filters (`nfilter`) exceeds 5. |
+| **`dropout_p`**             | Dropout probability value (default: `0.5`). This controls the percentage of neurons that are randomly set to zero during training to prevent overfitting. |
+| **`coeff_l1`**              | Coefficient for L1 weight regularization (default: `0`). This regularization term helps prevent overfitting by penalizing large weights in the network. |
+| **`coeff_l2`**              | Coefficient for L2 weight regularization (default: `0.0001`). Similar to L1 regularization, it penalizes large weights to avoid overfitting. |
+| **`learning_rate`**         | The learning rate for the Adam optimizer (default: `None`). If set to `None`, the script will try learning rates from a range between `0.001` and `0.01`. |
+| **`regression`**            | Specifies the type of problem (default: `False`). If set to `True`, the model performs regression; otherwise, it performs classification. |
+| **`max_epochs`**            | Maximum number of epochs for training (default: `20`). Early stopping may halt training earlier if validation performance stops improving. |
+| **`patience`**              | Number of epochs to wait for improvement before early stopping (default: `5`). If the validation loss doesn't improve after this number of epochs, training stops to prevent overfitting. |
+| **`nrun`**                  | The number of neural network configurations to try during training (default: `15`). Each configuration uses different combinations of hyperparameters to explore the hyperparameter space. |
+| **`dendrogram_cutoff`**     | Cutoff for hierarchical clustering of filter weights used in post-training analysis (default: `0.4`). The cutoff value typically ranges between `0` and `1`, where a lower cutoff generates more clusters based on cosine similarity. |
+| **`accur_thres`**           | Threshold for validation accuracy to keep filters from models (default: `0.95`). If fewer than 3 models pass this threshold, filters from the best 3 models are retained regardless. |
+| **`verbose`**               | Verbosity mode for training output (default: `1`). Controls the amount of information displayed during training. `0` = silent, `1` = progress bar, `2` = one line per epoch. |
+| **`optimizer`**             | The optimizer used for training the neural network (default: `'Adam'`). The Adam optimizer is utilized with the specified `learning_rate`. If `learning_rate` is set to `None`, learning rates from the range [0.001, 0.01] are tried during different runs. |
 
 
 ### 4. Key Model Components:
